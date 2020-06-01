@@ -35,7 +35,7 @@
   import { getLocal } from '../common/js/utils'
   export default {
     mounted() {
-      const { token } = getLocal('token')
+      const token = getLocal('token')
       if (token) {
         this.$store.dispatch('updateCart')
       }
