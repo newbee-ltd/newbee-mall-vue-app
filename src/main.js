@@ -25,7 +25,6 @@ new Vue({
 }).$mount('#app')
 
 Vue.prototype.$md5 = md5;
-window.vRouter = router
 
 Array.prototype.remove = function(val) {
   var index = this.indexOf(val);

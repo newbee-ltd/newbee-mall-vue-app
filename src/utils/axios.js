@@ -9,6 +9,7 @@
 
 import axios from 'axios'
 import { Toast } from 'vant'
+import router from '../router'
 
 axios.defaults.baseURL = process.env.NODE_ENV == 'development' ? '//localhost:28019' : 'localhost:28019'
 axios.defaults.withCredentials = true
@@ -24,7 +25,7 @@ axios.interceptors.response.use(res => {
   if (res.data.resultCode != 200) {
     if (res.data.message) Toast.fail(res.data.message)
     if (res.data.resultCode == 416) {
-      window.vRouter.push({ path: '/login' })
+      router.push({ path: '/login' })
     }
     return Promise.reject(res.data)
   }

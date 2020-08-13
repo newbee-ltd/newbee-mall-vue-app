@@ -46,7 +46,7 @@
       :price="item.sellingPrice"
       desc="全场包邮"
       :title="item.goodsName"
-      :thumb="`//api.newbee.ltd${item.goodsCoverImg}`"
+      :thumb="`//lmall.xinfeng.site${item.goodsCoverImg}`"
     />
     <van-popup
       v-model="showPay"

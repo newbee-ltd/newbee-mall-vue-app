@@ -34,7 +34,7 @@
       <header class="good-header">新品上线</header>
       <div class="good-box">
         <div class="good-item" v-for="item in newGoodses" :key="item.goodsId" @click="goToDetail(item)">
-          <img :src="`//api.newbee.ltd${item.goodsCoverImg}`" alt="">
+          <img :src="`//lmall.xinfeng.site${item.goodsCoverImg}`" alt="">
           <div class="good-desc">
             <div class="title">{{ item.goodsName }}</div>
             <div class="price">¥ {{ item.sellingPrice }}</div>
@@ -46,7 +46,7 @@
       <header class="good-header">热门商品</header>
       <div class="good-box">
         <div class="good-item" v-for="item in hots" :key="item.goodsId" @click="goToDetail(item)">
-          <img :src="`//api.newbee.ltd${item.goodsCoverImg}`" alt="">
+          <img :src="`//lmall.xinfeng.site${item.goodsCoverImg}`" alt="">
           <div class="good-desc">
             <div class="title">{{ item.goodsName }}</div>
             <div class="price">¥ {{ item.sellingPrice }}</div>
@@ -58,7 +58,7 @@
       <header class="good-header">最新推荐</header>
       <div class="good-box">
         <div class="good-item" v-for="item in recommends" :key="item.goodsId" @click="goToDetail(item)">
-          <img :src="`//api.newbee.ltd${item.goodsCoverImg}`" alt="">
+          <img :src="`//lmall.xinfeng.site${item.goodsCoverImg}`" alt="">
           <div class="good-desc">
             <div class="title">{{ item.goodsName }}</div>
             <div class="price">¥ {{ item.sellingPrice }}</div>

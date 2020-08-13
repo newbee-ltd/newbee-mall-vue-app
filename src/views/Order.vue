@@ -39,7 +39,7 @@
             :price="one.sellingPrice"
             desc="全场包邮"
             :title="one.goodsName"
-            :thumb="`//api.newbee.ltd${one.goodsCoverImg}`"
+            :thumb="`//lmall.xinfeng.site${one.goodsCoverImg}`"
           />
         </div>
       </van-list>
