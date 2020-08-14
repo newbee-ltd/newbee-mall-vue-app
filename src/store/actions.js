@@ -7,13 +7,50 @@
  * 版权所有，侵权必究！
  */
 
-import { getCart } from '../service/cart'
+import { getCart } from '@/service/cart'
+import { login, getUserInfo, logout } from '@/service/user'
+import { setLocal } from '@/common/js/utils'
 
 export default {
-  async updateCart(ctx) {
-    const { data } = await getCart()
-    ctx.commit('addCart', {
-      count: data.length || 0
+  updateCart ({ commit }) {
+    getCart().then(({ data }) => {
+      commit('addCart', {
+        count: data.length || 0
+      })
     })
-  }
+  },
+  getUserInfo ({ commit }) {
+    return new Promise((resolve, reject) => {
+      getUserInfo().then(({ data }) => {
+        commit('SET_USER', data)
+        resolve(data)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+  login ({ commit, dispatch, state }, params) {
+    return new Promise((resolve, reject) => {
+      login(params).then(({ data }) => {
+        setLocal('token', data)
+        commit('SET_TOKEN', data)
+        dispatch('getUserInfo')
+        resolve(data)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+  logout ({ commit }) {
+    return new Promise((resolve, reject) => {
+      logout().then(() => {
+        setLocal('token', '')
+        commit('SET_TOKEN', '')
+        commit('SET_USER', {})
+        resolve()
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
 }

@@ -10,8 +10,9 @@
 import axios from 'axios'
 import { Toast } from 'vant'
 import router from '../router'
+import { HTTP_RESULT_CODE } from '@/utils/config'
 
-axios.defaults.baseURL = process.env.NODE_ENV == 'development' ? '//localhost:28019' : 'localhost:28019'
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://47.99.134.126:28019/api/v1' : 'localhost:28019'
 axios.defaults.withCredentials = true
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers['token'] = localStorage.getItem('token') || ''
@@ -22,9 +23,11 @@ axios.interceptors.response.use(res => {
     Toast.fail('服务端异常！')
     return Promise.reject(res)
   }
-  if (res.data.resultCode != 200) {
-    if (res.data.message) Toast.fail(res.data.message)
-    if (res.data.resultCode == 416) {
+  if (res.data.resultCode !== HTTP_RESULT_CODE.OK) {
+    if (res.data.message) {
+      Toast.fail(res.data.message)
+    }
+    if (res.data.resultCode === HTTP_RESULT_CODE.NOT_AUTHENTICATED) {
       router.push({ path: '/login' })
     }
     return Promise.reject(res.data)

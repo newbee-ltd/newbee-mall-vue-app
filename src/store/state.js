@@ -8,5 +8,11 @@
  */
 
 export default {
-  cartCount: 0
+  cartCount: 0,
+  user: {
+    introduceSign: '',
+    loginName: '',
+    nickName: '',
+  },
+  token: ''
 }
