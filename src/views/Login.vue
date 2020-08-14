@@ -104,7 +104,7 @@ export default {
     Verify
   },
   created () {
-    this.fullPath = this.$route.query.to
+    this.fullPath = this.$route.query.to || '/'
   },
   methods: {
     dealTriVer () {
@@ -133,7 +133,8 @@ export default {
           this.$router.replace({
             path: this.fullPath
           })
-        }).catch(() => {
+        }).catch((err) => {
+          console.log(err)
           // show error message or do something
         }).finally(() => {
           loading.clear()
@@ -146,6 +147,7 @@ export default {
           this.$toast.success('注册成功')
           this.type = PAGE_TYPE.LOGIN
         }).catch(err => {
+          console.log(err)
           // show error message or do something
         }).finally(() => {
           loading.clear()

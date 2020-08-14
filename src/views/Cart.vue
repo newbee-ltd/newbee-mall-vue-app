@@ -157,6 +157,7 @@ export default {
       this.result = result
     },
     allCheck (value) {
+      console.log(this.checkAll)
       if (!this.checkAll) {
         this.result = this.list.map(item => item.cartItemId)
       } else {

@@ -33,6 +33,7 @@ export default {
     return new Promise((resolve, reject) => {
       login(params).then(({ data }) => {
         setLocal('token', data)
+        console.log(data)
         commit('SET_TOKEN', data)
         dispatch('getUserInfo')
         resolve(data)
