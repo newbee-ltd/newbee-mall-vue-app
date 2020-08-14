@@ -40,51 +40,74 @@
       </div>
     </div>
     <van-goods-action>
-      <van-goods-action-icon icon="chat-o" text="客服" />
+      <van-goods-action-icon icon="chat-o" text="客服"/>
       <van-goods-action-icon icon="cart-o" :info="!count ? '' : count" @click="goTo()" text="购物车"/>
-      <van-goods-action-button type="warning" @click="addCart" text="加入购物车" />
-      <van-goods-action-button type="danger" @click="goToCart" text="立即购买" />
+      <van-goods-action-button type="warning" @click="addCart" text="加入购物车"/>
+      <van-goods-action-button type="danger" @click="goToCart" text="立即购买"/>
     </van-goods-action>
   </div>
 </template>
 
 <script>
-import { getDetail } from '../service/good'
-import { addCart } from '../service/cart'
+import { getDetail } from '@/service/good'
+import { addCart } from '@/service/cart'
 import sHeader from '@/components/SimpleHeader'
 import { Toast } from 'vant'
+
 export default {
-  data() {
+  data () {
     return {
       detail: {
         goodsCarouselList: []
-      }
+      },
+      goodsId: ''
     }
   },
   components: {
     sHeader
   },
-  async mounted() {
-    const { id } = this.$route.params
-    const { data } = await getDetail(id)
-    this.detail = data
+  mounted () {
+    this.goodsId = this.$route.params.id
+    this.getDetail()
   },
   methods: {
-    goBack() {
+    getDetail () {
+      const loading = this.$toast.loading({
+        message: '加载中...',
+        forbidClick: true
+      })
+      getDetail(this.goodsId).then(({ data }) => {
+        this.detail = data
+      }).catch(err => {
+        console.log(err)
+      }).finally(() => {
+        loading.clear()
+      })
+    },
+    goBack () {
       this.$router.go(-1)
     },
-    goTo() {
+    goTo () {
       this.$router.push({ path: '/cart' })
     },
-    async addCart() {
-      const { data, resultCode } = await addCart({ goodsCount: 1, goodsId: this.detail.goodsId })
-      if (resultCode == 200 ) Toast.success('添加成功')
-      this.$store.dispatch('updateCart')
+    addCart () {
+      addCart({
+        goodsCount: 1,
+        goodsId: this.goodsId
+      }).then(() => {
+        this.$toast.success('添加成功')
+        this.$store.dispatch('updateCart')
+      }).catch(err => {
+        console.log(err)
+      })
     },
-    async goToCart() {
-      const { data, resultCode } = await addCart({ goodsCount: 1, goodsId: this.detail.goodsId })
-      this.$store.dispatch('updateCart')
-      this.$router.push({ path: '/cart' })
+    async goToCart () {
+      addCart({
+        goodsCount: 1,
+        goodsId: this.goodsId
+      }).then(() => {
+        this.$router.push({ path: '/cart' })
+      })
     }
   },
   computed: {
@@ -97,6 +120,7 @@ export default {
 
 <style lang="less">
   @import '../common/style/mixin';
+
   .product-detail {
     .detail-header {
       position: fixed;
@@ -111,12 +135,15 @@ export default {
       color: #252525;
       background: #fff;
       border-bottom: 1px solid #dcdcdc;
+
       .product-name {
         font-size: 14px;
       }
     }
+
     .detail-content {
       margin-top: 44px;
+
       .detail-swipe-wrap {
         .my-swipe .van-swipe-item {
           img {
@@ -125,37 +152,46 @@ export default {
           }
         }
       }
+
       .product-info {
         padding: 0 10px;
+
         .product-title {
           font-size: 18px;
           text-align: left;
           color: #333;
         }
+
         .product-desc {
           font-size: 14px;
           text-align: left;
           color: #999;
           padding: 5px 0;
         }
+
         .product-price {
           .fj();
+
           span:nth-child(1) {
             color: #F63515;
             font-size: 22px;
           }
+
           span:nth-child(2) {
             color: #999;
             font-size: 16px;
           }
         }
       }
+
       .product-intro {
         width: 100%;
+
         ul {
           .fj();
           width: 100%;
           margin: 10px 0;
+
           li {
             flex: 1;
             padding: 5px 0;
@@ -163,22 +199,27 @@ export default {
             font-size: 15px;
             border-right: 1px solid #999;
             box-sizing: border-box;
+
             &:last-child {
               border-right: none;
             }
           }
         }
+
         .product-content {
           padding: 0 20px;
+
           img {
             width: 100%;
           }
         }
       }
     }
+
     .van-goods-action-button--warning {
-      background: linear-gradient(to right,#6bd8d8, @primary)
+      background: linear-gradient(to right, #6bd8d8, @primary)
     }
+
     .van-goods-action-button--danger {
       background: linear-gradient(to right, #0dc3c3, #098888)
     }

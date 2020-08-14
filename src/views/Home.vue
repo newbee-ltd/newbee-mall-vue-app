@@ -17,7 +17,7 @@
         <i class="iconfont icon-search"></i>
         <router-link tag="span" class="search-title" to="./product-list?from=home">山河无恙，人间皆安</router-link>
       </div>
-      <router-link class="login" tag="span" to="./login" v-if="!isLogin">登录</router-link>
+      <router-link class="login" tag="span" to="./login" v-if="!token">登录</router-link>
       <router-link class="login" tag="span" to="./user" v-else>
         <van-icon name="manager-o"/>
       </router-link>
@@ -73,15 +73,13 @@
 import navBar from '@/components/NavBar'
 import swiper from '@/components/Swiper'
 import { getHome } from '@/service/home'
-import { getLocal } from '@/common/js/utils'
-import { Toast } from 'vant'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'home',
   data () {
     return {
       swiperList: [],
-      isLogin: false,
       headerScroll: false,
       hots: [],
       newGoodses: [],
@@ -136,28 +134,36 @@ export default {
     navBar,
     swiper
   },
-  async mounted () {
-    const token = getLocal('token')
-    if (token) {
-      this.isLogin = true
-    }
+  computed: {
+    ...mapGetters(['token'])
+  },
+  mounted () {
     window.addEventListener('scroll', this.pageScroll)
-    Toast.loading({
-      message: '加载中...',
-      forbidClick: true
-    })
-    const { data } = await getHome()
-    this.swiperList = data.carousels
-    this.newGoodses = data.newGoodses
-    this.hots = data.hotGoodses
-    this.recommends = data.recommendGoodses
-    Toast.clear()
+    this.getHome()
   },
   methods: {
+    getHome () {
+      const loading = this.$toast.loading({
+        message: '加载中...',
+        forbidClick: true
+      })
+      getHome().then(({ data }) => {
+        this.swiperList = data.carousels
+        this.newGoodses = data.newGoodses
+        this.hots = data.hotGoodses
+        this.recommends = data.recommendGoodses
+      }).catch(err => {
+        console.log(err)
+      }).finally(() => {
+        loading.clear()
+      })
+    },
     pageScroll () {
       clearTimeout(this.pageScrollTimer)
       this.pageScrollTimer = setTimeout(() => {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+        const scrollTop = window.pageYOffset
+          || document.documentElement.scrollTop
+          || document.body.scrollTop
         this.headerStyle = `background: rgba(27,174,174,${scrollTop > 200 ? 1 : scrollTop / 200});`
         this.headerScroll = scrollTop > 100
       }, 10)
