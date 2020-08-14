@@ -15,7 +15,7 @@
       <van-checkbox-group @change="groupChange" v-model="result" ref="checkboxGroup">
         <van-swipe-cell :right-width="50" v-for="(item, index) in list" :key="index">
           <div class="good-item">
-            <van-checkbox :name="item.cartItemId" />
+            <van-checkbox :name="item.cartItemId"/>
             <div class="good-img"><img :src="`//lmall.xinfeng.site${item.goodsCoverImg}`" alt=""></div>
             <div class="good-desc">
               <div class="good-title">
@@ -56,7 +56,7 @@
       <van-checkbox @click="allCheck" v-model="checkAll">全选</van-checkbox>
     </van-submit-bar>
     <div class="empty" v-if="!list.length">
-      <van-icon name="smile-o" />
+      <van-icon name="smile-o"/>
       <div class="title">购物车空空空如也</div>
       <van-button color="#1baeae" type="primary" @click="goTo" block>前往首页</van-button>
     </div>
@@ -65,12 +65,12 @@
 </template>
 
 <script>
-import { Toast } from 'vant'
 import navBar from '@/components/NavBar'
 import sHeader from '@/components/SimpleHeader'
-import { getCart, deleteCartItem, modifyCart } from '../service/cart'
+import { getCart, deleteCartItem, modifyCart } from '@/service/cart'
+
 export default {
-  data() {
+  data () {
     return {
       checked: false,
       list: [],
@@ -83,11 +83,11 @@ export default {
     navBar,
     sHeader
   },
-  mounted() {
+  mounted () {
     this.init()
   },
   computed: {
-    total: function() {
+    total: function () {
       let sum = 0
       let _list = this.list.filter(item => this.result.includes(item.cartItemId))
       _list.forEach(item => {
@@ -97,55 +97,67 @@ export default {
     }
   },
   methods: {
-    async init() {
-      Toast.loading({ message: '加载中...', forbidClick: true });
+    async init () {
+      const loading = this.$toast.loading(
+        { message: '加载中...', forbidClick: true }
+      )
       const { data } = await getCart({ pageNumber: 1 })
       this.list = data
       this.result = data.map(item => item.cartItemId)
-      Toast.clear()
+      loading.clear()
     },
-    goBack() {
+    goBack () {
       this.$router.go(-1)
     },
-    goTo() {
+    goTo () {
       this.$router.push({ path: 'home' })
     },
-    async onChange(value, detail) {
-      if (this.list.filter(item => item.cartItemId == detail.name)[0].goodsCount == value) return
-      Toast.loading({ message: '修改中...', forbidClick: true });
+    async onChange (value, detail) {
+      if (this.list.filter(item => item.cartItemId === detail.name)[0].goodsCount === value) {
+        return
+      }
+      const loading = this.$toast.loading({
+        message: '修改中...', forbidClick: true
+      })
       const params = {
         cartItemId: detail.name,
         goodsCount: value
       }
       const { data } = await modifyCart(params)
       this.list.forEach(item => {
-        if (item.cartItemId == detail.name) {
+        if (item.cartItemId === detail.name) {
           item.goodsCount = value
         }
       })
-      Toast.clear();
+      loading.clear()
     },
-    async onSubmit() {
+    async onSubmit () {
       const params = JSON.stringify(this.result)
       // for(let i = 0; i < this.result.length; i++) {
       //   await deleteCartItem(this.result[i])
       // }
-      this.$router.push({ path: `create-order?cartItemIds=${params}` })
+      this.$router.push({
+        path: 'create-order',
+        query: {
+          cartItemIds: params
+        }
+      })
     },
-    async deleteGood(id) {
-      const { data } = await deleteCartItem(id)
-      this.$store.dispatch('updateCart')
-      this.init()
+    deleteGood (id) {
+      deleteCartItem(id).then(() => {
+        this.$store.dispatch('updateCart')
+      }).catch(err => {
+        // show error message or do something
+      }).finally(() => {
+        this.init()
+      })
     },
-    groupChange(result) {
-      if (result.length == this.list.length) {
-        this.checkAll = true
-      } else {
-        this.checkAll = false
-      }
+    groupChange (result) {
+      this.checkAll = result.length === this.list.length
       this.result = result
     },
-    allCheck(value) {
+    allCheck (value) {
+      console.log(this.checkAll)
       if (!this.checkAll) {
         this.result = this.list.map(item => item.cartItemId)
       } else {
@@ -158,6 +170,7 @@ export default {
 
 <style lang="less">
   @import '../common/style/mixin';
+
   .cart-box {
     .cart-header {
       position: fixed;
@@ -172,38 +185,47 @@ export default {
       color: #252525;
       background: #fff;
       border-bottom: 1px solid #dcdcdc;
+
       .cart-name {
         font-size: 14px;
       }
     }
+
     .cart-body {
       margin: 60px 0 100px 0;
       padding-left: 10px;
+
       .good-item {
         display: flex;
+
         .good-img {
           img {
             .wh(100px, 100px)
           }
         }
+
         .good-desc {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           flex: 1;
           padding: 20px;
+
           .good-title {
             display: flex;
             justify-content: space-between;
           }
+
           .good-btn {
             display: flex;
             justify-content: space-between;
+
             .price {
               font-size: 16px;
               color: red;
               line-height: 28px;
             }
+
             .van-icon-delete {
               font-size: 20px;
               margin-top: 4px;
@@ -211,36 +233,45 @@ export default {
           }
         }
       }
+
       .delete-button {
         width: 50px;
         height: 100%;
       }
     }
+
     .empty {
       width: 50%;
       margin: 0 auto;
       text-align: center;
       margin-top: 200px;
+
       .van-icon-smile-o {
         font-size: 50px;
       }
+
       .title {
         font-size: 16px;
         margin-bottom: 20px;
       }
     }
+
     .submit-all {
       margin-bottom: 50px;
+
       .van-checkbox {
         margin-left: 10px
       }
+
       .van-submit-bar__text {
         margin-right: 10px
       }
+
       .van-submit-bar__button {
         background: @primary;
       }
     }
+
     .van-checkbox__icon--checked .van-icon {
       background-color: @primary;
       border-color: @primary;

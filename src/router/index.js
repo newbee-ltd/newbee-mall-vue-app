@@ -9,20 +9,7 @@
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Cart from '../views/Cart.vue'
-import Category from '../views/Category.vue'
-import ProductList from '../views/ProductList.vue'
-import ProductDetail from '../views/ProductDetail.vue'
-import User from '../views/User.vue'
-import Order from '../views/Order.vue'
-import OrderDetail from '../views/OrderDetail.vue'
-import Setting from '../views/Setting.vue'
-import Address from '../views/Address.vue'
-import AddressEdit from '../views/AddressEdit.vue'
-import Login from '../views/Login.vue'
-import About from '../views/About.vue'
-import CreateOrder from '../views/CreateOrder.vue'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
@@ -44,7 +31,8 @@ const routes = [
     path: '/home',
     name: 'home',
     meta: {
-      index: 1
+      index: 1,
+      keepAlive: true
     },
     component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue'),
   },
@@ -52,7 +40,8 @@ const routes = [
     path: '/cart',
     name: 'cart',
     meta: {
-      index: 1
+      index: 1,
+      auth: true
     },
     component: () => import(/* webpackChunkName: "cart" */ '../views/Cart.vue'),
   },
@@ -76,7 +65,8 @@ const routes = [
     path: '/product/:id',
     name: 'product',
     meta: {
-      index: 3
+      index: 3,
+      auth: true
     },
     component: () => import(/* webpackChunkName: "product" */ '../views/ProductDetail.vue'),
   },
@@ -84,7 +74,8 @@ const routes = [
     path: '/user',
     name: 'user',
     meta: {
-      index: 1
+      index: 1,
+      auth: true
     },
     component: () => import(/* webpackChunkName: "user" */ '../views/User.vue'),
   },
@@ -92,7 +83,8 @@ const routes = [
     path: '/order',
     name: 'order',
     meta: {
-      index: 2
+      index: 2,
+      auth: true
     },
     component: () => import(/* webpackChunkName: "order" */ '../views/Order.vue'),
   },
@@ -100,7 +92,8 @@ const routes = [
     path: '/order-detail',
     name: 'order-detail',
     meta: {
-      index: 3
+      index: 3,
+      auth: true
     },
     component: () => import(/* webpackChunkName: "order-detail" */ '../views/OrderDetail.vue'),
   },
@@ -108,7 +101,8 @@ const routes = [
     path: '/setting',
     name: 'setting',
     meta: {
-      index: 2
+      index: 2,
+      auth: true
     },
     component: () => import(/* webpackChunkName: "setting" */ '../views/Setting.vue'),
   },
@@ -116,7 +110,8 @@ const routes = [
     path: '/address',
     name: 'address',
     meta: {
-      index: 2
+      index: 2,
+      auth: true
     },
     component: () => import(/* webpackChunkName: "address" */ '../views/Address.vue'),
   },
@@ -140,7 +135,8 @@ const routes = [
     path: '/create-order',
     name: 'create-order',
     meta: {
-      index: 2
+      index: 2,
+      auth: true
     },
     component: () => import(/* webpackChunkName: "create-order" */ '../views/CreateOrder.vue'),
   },
@@ -149,7 +145,44 @@ const routes = [
 const router = new VueRouter({
   mode: 'hash',
   base: process.env.BASE_URL,
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition && to.meta.keepAlive) {
+      return savedPosition
+    }
+    return { x: 0, y: 0 }
+  },
   routes
 })
+const originalPush = VueRouter.prototype.push
+const originalReplace = VueRouter.prototype.replace
+VueRouter.prototype.push = function push (location, onResolve, onReject) {
+  if (onResolve || onReject)
+    return originalPush.call(this, location, onResolve, onReject)
+  return originalPush.call(this, location).catch(err => err)
+}
 
+VueRouter.prototype.replace = function replace (location, onResolve, onReject) {
+  if (onResolve || onReject)
+    return originalReplace.call(this, location, onResolve, onReject)
+  return originalReplace.call(this, location).catch(err => err)
+}
+router.beforeEach(async (to, from, next) => {
+  if (to.meta.auth) {
+    if (store.getters.token) {
+      if (!store.getters.userInfo.loginName) {
+        await store.dispatch('getUserInfo')
+      }
+      next()
+    } else {
+      next({
+        path: '/login',
+        query: {
+          to: `${to.fullPath}`
+        }
+      })
+    }
+    return
+  }
+  next()
+})
 export default router

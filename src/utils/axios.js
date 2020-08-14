@@ -6,25 +6,37 @@
  * Copyright (c) 2020 陈尼克 all rights reserved.
  * 版权所有，侵权必究！
  */
+
 import axios from 'axios'
 import { Toast } from 'vant'
 import router from '../router'
-
-axios.defaults.baseURL = process.env.NODE_ENV == 'development' ? '//localhost:28019' : 'localhost:28019'
+import { HTTP_RESULT_CODE } from '@/utils/config'
+import store from '@/store'
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://47.99.134.126:28019/api/v1' : 'localhost:28019'
 axios.defaults.withCredentials = true
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
-axios.defaults.headers['token'] = localStorage.getItem('token') || ''
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
+axios.interceptors.request.use(config => {
+  if (store.getters.token && store.getters.token !== 'undefined') {
+    config.headers['token'] = store.getters.token
+  }
+  return config
+}, error => {
+  // Do something with request error
+  console.log(error) // for debug
+})
 
 axios.interceptors.response.use(res => {
   if (typeof res.data !== 'object') {
     Toast.fail('服务端异常！')
     return Promise.reject(res)
   }
-  if (res.data.resultCode != 200) {
-    if (res.data.message) Toast.fail(res.data.message)
-    if (res.data.resultCode == 416) {
+  if (res.data.resultCode !== HTTP_RESULT_CODE.OK) {
+    if (res.data.message) {
+      Toast.fail(res.data.message)
+    }
+    if (res.data.resultCode === HTTP_RESULT_CODE.NOT_AUTHENTICATED) {
       router.push({ path: '/login' })
     }
     return Promise.reject(res.data)

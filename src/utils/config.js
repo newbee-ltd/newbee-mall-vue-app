@@ -1,0 +1,4 @@
+export const HTTP_RESULT_CODE = {
+  OK: 200,
+  NOT_AUTHENTICATED: 416
+}
