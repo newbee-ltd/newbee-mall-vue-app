@@ -6,6 +6,7 @@
  * Copyright (c) 2020 陈尼克 all rights reserved.
  * 版权所有，侵权必究！
  */
+import { getLocal } from '@/common/js/utils'
 
 export default {
   cartCount: 0,
@@ -14,5 +15,5 @@ export default {
     loginName: '',
     nickName: '',
   },
-  token: ''
+  token: getLocal('token') || ''
 }

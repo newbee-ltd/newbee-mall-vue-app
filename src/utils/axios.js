@@ -12,7 +12,7 @@ import { Toast } from 'vant'
 import router from '../router'
 import { HTTP_RESULT_CODE } from '@/utils/config'
 import store from '@/store'
-axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'localhost:28019' : 'localhost:28019'
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://47.99.134.126:28019/api/v1' : 'localhost:28019'
 axios.defaults.withCredentials = true
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
@@ -25,7 +25,6 @@ axios.interceptors.request.use(config => {
 }, error => {
   // Do something with request error
   console.log(error) // for debug
-  return Promise.reject(error)
 })
 
 axios.interceptors.response.use(res => {

@@ -10,45 +10,57 @@
 
 <template>
   <div id="app">
-    <transition :name="transitionName">
-      <router-view class="router-view" />
-    </transition>
+      <transition :name="transitionName">
+        <keep-alive :include="['home']">
+        <router-view :key="key" class="router-view"/>
+        </keep-alive>
+      </transition>
   </div>
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        transitionName: 'slide-left'
-      }
+export default {
+  data () {
+    return {
+      transitionName: 'slide-left'
+    }
+  },
+  computed: {
+    key () {
+      return this.$route.path
     },
-    watch: {
-      $route(to, from) {
-        // 有主级到次级
-        if (to.meta.index > from.meta.index) {
-          this.transitionName = 'slide-left' // 向左滑动
-        } else if (to.meta.index < from.meta.index) {
-          // 由次级到主级
-          this.transitionName = 'slide-right'
-        } else {
-          this.transitionName = ''   //同级无过渡效果
-        }
+    include () {
+      console.log(this.$route.name)
+      return this.$route.meta.keepAlive ? this.$route.name : ''
+    },
+  },
+
+  watch: {
+    $route (to, from) {
+      // 有主级到次级
+      if (to.meta.index > from.meta.index) {
+        this.transitionName = 'slide-left' // 向左滑动
+      } else if (to.meta.index < from.meta.index) {
+        // 由次级到主级
+        this.transitionName = 'slide-right'
+      } else {
+        this.transitionName = ''   //同级无过渡效果
       }
     }
   }
+}
 </script>
 
 <style lang="less">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  // text-align: center;
-  color: #2c3e50;
-}
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    // text-align: center;
+    color: #2c3e50;
+  }
 
-.router-view{
+  .router-view {
     width: 100%;
     height: auto;
     position: absolute;
@@ -56,32 +68,36 @@
     bottom: 0;
     margin: 0 auto;
     -webkit-overflow-scrolling: touch;
-}
+  }
 
-.slide-right-enter-active,
-.slide-right-leave-active,
-.slide-left-enter-active,
-.slide-left-leave-active{
+  .slide-right-enter-active,
+  .slide-right-leave-active,
+  .slide-left-enter-active,
+  .slide-left-leave-active {
     height: 100%;
     will-change: transform;
     transition: all 500ms;
     position: absolute;
     backface-visibility: hidden;
-}
-.slide-right-enter{
+  }
+
+  .slide-right-enter {
     opacity: 0;
     transform: translate3d(-100%, 0, 0);
-}
-.slide-right-leave-active{
+  }
+
+  .slide-right-leave-active {
     opacity: 0;
     transform: translate3d(100%, 0, 0);
-}
-.slide-left-enter{
+  }
+
+  .slide-left-enter {
     opacity: 0;
     transform: translate3d(100%, 0, 0);
-}
-.slide-left-leave-active{
+  }
+
+  .slide-left-leave-active {
     opacity: 0;
     transform: translate3d(-100%, 0, 0);
-}
+  }
 </style>
