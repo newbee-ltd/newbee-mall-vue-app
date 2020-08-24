@@ -39,7 +39,7 @@
             :price="one.sellingPrice"
             desc="全场包邮"
             :title="one.goodsName"
-            :thumb="`//lmall.xinfeng.site${one.goodsCoverImg}`"
+            :thumb="prefix(item.goodsCoverImg)"
           />
         </div>
       </van-list>

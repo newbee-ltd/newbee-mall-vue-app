@@ -40,7 +40,7 @@
       >
         <!-- <p v-for="item in list" :key="item">{{ item }}</p> -->
         <div class="product-item" v-for="(item, index) in productList" :key="index" @click="productDetail(item)">
-          <img :src="`//lmall.xinfeng.site${item.goodsCoverImg}`" />
+          <img :src="prefix(item.goodsCoverImg)" />
           <div class="product-info">
             <p class="name">{{item.goodsName}}</p>
             <p class="subtitle">{{item.goodsIntro}}</p>
