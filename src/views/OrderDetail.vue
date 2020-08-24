@@ -46,7 +46,7 @@
       :price="item.sellingPrice"
       desc="全场包邮"
       :title="item.goodsName"
-      :thumb="`//lmall.xinfeng.site${item.goodsCoverImg}`"
+      :thumb="prefix(item.goodsCoverImg)"
     />
     <van-popup
       v-model="showPay"
