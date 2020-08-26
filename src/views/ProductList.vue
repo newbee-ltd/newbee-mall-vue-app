@@ -53,7 +53,6 @@
 </template>
 
 <script>
-import { getQueryString } from '@/common/js/utils'
 import { search } from '../service/good'
 import { Toast } from 'vant'
 export default {
