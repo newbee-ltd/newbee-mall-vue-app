@@ -176,6 +176,9 @@ export default {
         }
       })
     }
+  },
+  beforeDestroy(){
+    window.removeEventListener('scroll', this.pageScroll)
   }
 }
 </script>

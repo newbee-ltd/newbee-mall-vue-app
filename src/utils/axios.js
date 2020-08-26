@@ -12,11 +12,10 @@ import { Toast } from 'vant'
 import router from '../router'
 import { HTTP_RESULT_CODE } from '@/utils/config'
 import store from '@/store'
-axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://47.99.134.126:28019/api/v1' : 'localhost:28019'
+axios.defaults.baseURL = process.env.VUE_APP_BASE_API
 axios.defaults.withCredentials = true
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
-
 axios.interceptors.request.use(config => {
   if (store.getters.token && store.getters.token !== 'undefined') {
     config.headers['token'] = store.getters.token

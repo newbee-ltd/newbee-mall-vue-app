@@ -4240,7 +4240,7 @@ tdist.getLev1 = function() {
 }
 
 tdist.getLev2 = function(t) {
-  if ("" == t)
+  if ("" === t)
       return [];
   for (var e = [], i = 1; i < 100; i++) {
       var n = t.substr(0, 2);
@@ -4255,7 +4255,7 @@ tdist.getLev2 = function(t) {
 }
 
 tdist.getLev3 = function(t) {
-  if ("" == t)
+  if ("" === t)
       return [];
   for (var e = [], i = 1; i < 100; i++) {
       var n = t.substr(0, 4);
@@ -4308,7 +4308,7 @@ export const prefix = (url) => {
   if (url && url.startsWith('http')) {
     return url
   } else {
-    url = `//${window.location.hostname}:28019${url}`
+    url = `//${process.env.VUE_APP_RUNTIME==='development'? '47.99.134.126' : window.location.hostname}:28019${url}`
     return url
   }
 }
