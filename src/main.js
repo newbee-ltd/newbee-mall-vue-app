@@ -12,6 +12,7 @@ import md5 from 'js-md5';
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import { prefix } from '@/common/js/utils'
 import { Popup, Overlay, Loading, Dialog, ContactCard, Form, AddressEdit, AddressList, Field, CellGroup, Cell, SwipeCell, Icon, Stepper, Card, Checkbox, CheckboxGroup, Button, Swipe, SwipeItem, PullRefresh, List, Tab, Tabs, GoodsAction, GoodsActionIcon, GoodsActionButton, SubmitBar, Toast } from 'vant'
 import 'lib-flexible/flexible'
 
@@ -25,6 +26,7 @@ new Vue({
 }).$mount('#app')
 
 Vue.prototype.$md5 = md5;
+Vue.prototype.prefix = prefix;
 
 Array.prototype.remove = function(val) {
   var index = this.indexOf(val);

@@ -15,7 +15,7 @@
       <div class="detail-swipe-wrap">
         <van-swipe class="my-swipe" indicator-color="#1baeae">
           <van-swipe-item v-for="(item, index) in detail.goodsCarouselList" :key="index">
-            <img :src="`//lmall.xinfeng.site${item}`" alt="">
+            <img :src="prefix(item)" alt="">
           </van-swipe-item>
         </van-swipe>
       </div>

@@ -15,8 +15,8 @@
       <van-checkbox-group @change="groupChange" v-model="result" ref="checkboxGroup">
         <van-swipe-cell :right-width="50" v-for="(item, index) in list" :key="index">
           <div class="good-item">
-            <van-checkbox :name="item.cartItemId"/>
-            <div class="good-img"><img :src="`//lmall.xinfeng.site${item.goodsCoverImg}`" alt=""></div>
+            <van-checkbox :name="item.cartItemId" />
+            <div class="good-img"><img :src="prefix(item.goodsCoverImg)" alt=""></div>
             <div class="good-desc">
               <div class="good-title">
                 <span>{{ item.goodsName }}</span>

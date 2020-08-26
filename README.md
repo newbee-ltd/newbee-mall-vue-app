@@ -8,6 +8,8 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 
 本仓库中的源码为新蜂商城前后端分离版本的 Vue 项目，主要面向前端开发人员，后端 API 源码在另外一个仓库 [newbee-mall-api](https://github.com/newbee-ltd/newbee-mall-api)。
 
+新蜂商城 Vue 版本线上预览地址：[http://vue-app.newbee.ltd](http://47.99.134.126:5000)，账号可自行注册，建议使用手机模式打开。
+
 前后端分离版本包括三个仓库：
 
 - [新蜂商城 V2 后端接口 newbee-mall-api](https://github.com/newbee-ltd/newbee-mall-api)
