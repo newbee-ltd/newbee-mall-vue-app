@@ -90,6 +90,7 @@ export default {
   },
   methods: {
     dealTriVer() {
+      // 执行验证码的验证，通过 this.verify 知道验证码是否填写正确
       this.$refs.loginVerifyRef.$refs.instance.checkCode()
     },
     toggle(v) {
