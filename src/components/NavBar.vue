@@ -36,7 +36,8 @@
   export default {
     mounted() {
       const token = getLocal('token')
-      if (token) {
+      const path = this.$route.path
+      if (token && path != '/home') {
         this.$store.dispatch('updateCart')
       }
     },
