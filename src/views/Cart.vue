@@ -126,6 +126,10 @@ export default {
       Toast.clear();
     },
     async onSubmit() {
+      if (this.result.length == 0) {
+        Toast.fail('请选择商品进行结算')
+        return
+      }
       const params = JSON.stringify(this.result)
       // for(let i = 0; i < this.result.length; i++) {
       //   await deleteCartItem(this.result[i])

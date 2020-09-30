@@ -39,7 +39,7 @@
             :price="one.sellingPrice"
             desc="全场包邮"
             :title="one.goodsName"
-            :thumb="prefix(item.goodsCoverImg)"
+            :thumb="prefix(one.goodsCoverImg)"
           />
         </div>
       </van-list>
@@ -50,6 +50,7 @@
 <script>
 import sHeader from '@/components/SimpleHeader'
 import { getOrderList } from '../service/order'
+import { prefix } from '@/common/js/utils'
 
 export default {
   data() {
