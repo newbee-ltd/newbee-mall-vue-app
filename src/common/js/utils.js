@@ -4308,7 +4308,7 @@ export const prefix = (url) => {
   if (url && url.startsWith('http')) {
     return url
   } else {
-    url = `//${window.location.hostname}:28019${url}`
+    url = `http://47.99.134.126:28019${url}`
     return url
   }
 }
