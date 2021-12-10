@@ -24,7 +24,7 @@
         <label>下单时间：</label>
         <span>{{ detail.createTime }}</span>
       </div>
-      <!-- <van-button v-if="[1,2,3].includes(detail.orderStatus)" style="margin-bottom: 10px" color="#1baeae" block @click="confirmOrder(detail.orderNo)">确认订单</van-button> -->
+      <van-button v-if="[1,2,3].includes(detail.orderStatus)" style="margin-bottom: 10px" color="#1baeae" block @click="handleConfirmOrder(detail.orderNo)">确认收货</van-button>
       <van-button v-if="detail.orderStatus == 0" style="margin-bottom: 10px" color="#1baeae" block @click="showPayFn">去支付</van-button>
       <van-button v-if="!(detail.orderStatus < 0 || detail.orderStatus == 4)" block @click="cancelOrder(detail.orderNo)">取消订单</van-button>
     </div>
@@ -104,9 +104,9 @@ export default {
         // on cancel
       });
     },
-    confirmOrder(id) {
+    handleConfirmOrder(id) {
       Dialog.confirm({
-        title: '是否确认订单？',
+        title: '是否确认收货？',
       }).then(() => {
         confirmOrder(id).then(res => {
           if (res.resultCode == 200) {
