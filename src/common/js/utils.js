@@ -9,9 +9,9 @@
 
 export function getQueryString(name) {
   let reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-  let r = window.location.search.substr(1).match(reg);
+  let r = window.location.search.slice(1).match(reg);
   if(r != null) {
-      return  unescape(r[2]);
+      return  decodeURI(r[2]);
   } else {
       return null
   };
@@ -4245,7 +4245,7 @@ tdist.getLev2 = function(t) {
       return [];
   let e=[];
   for (let i = 1; i < 100; i++) {
-      let n = t.substr(0, 2);
+      let n = t.slice(0, 2);
       n += i < 10 ? "0" + i + "00" : i + "00";
       let r = this[n];
       "undefined" != typeof r && e.push({
@@ -4261,7 +4261,7 @@ tdist.getLev3 = function(t) {
       return [];
   let e=[];
   for (let i = 1; i < 100; i++) {
-      let n = t.substr(0, 4);
+      let n = t.slice(0, 4);
       n += i < 10 ? "0" + i : i;
       let r = this[n];
       "undefined" != typeof r && e.push({

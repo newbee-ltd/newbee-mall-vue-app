@@ -77,9 +77,9 @@ export default {
         // 先找出当前对应的区
         if (text == addressDetail.regionName) {
           // 找到区对应的几个省份
-          const provinceIndex = province.findIndex(item => item.id.substr(0, 2) == id.substr(0, 2))
+          const provinceIndex = province.findIndex(item => item.id.slice(0, 2) == id.substr(0, 2))
           // 找到区对应的几个市区
-          const cityItem = Object.entries(this.areaList.city_list).filter(([cityId, cityName]) => cityId.substr(0, 4) == id.substr(0, 4))[0]
+          const cityItem = Object.entries(this.areaList.city_list).filter(([cityId, cityName]) => cityId.slice(0, 4) == id.slice(0, 4))[0]
           // 对比找到的省份和接口返回的省份是否相等，因为有一些区会重名
           if (province[provinceIndex].text == addressDetail.provinceName && cityItem[1] == addressDetail.cityName) {
             _areaCode = id

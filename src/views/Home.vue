@@ -153,7 +153,7 @@ export default {
   },
   methods: {
     pageScroll() {
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      let scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop
       scrollTop > 100 ? this.headerScroll = true : this.headerScroll = false
     },
     goToDetail(item) {

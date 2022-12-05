@@ -105,7 +105,7 @@ export default {
       this.onRefresh()
     },
     pageScroll() {
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      let scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop
       scrollTop > 50 ? this.seclectActive = true : this.seclectActive = false
     },
     onLoad() {
