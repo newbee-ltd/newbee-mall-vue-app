@@ -50,7 +50,6 @@
 <script>
 import sHeader from '@/components/SimpleHeader'
 import { getOrderList } from '../service/order'
-import { prefix } from '@/common/js/utils'
 
 export default {
   data() {

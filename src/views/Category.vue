@@ -38,7 +38,6 @@
               <div class="swiper-wrapper">
                 <template v-for="(category, index) in categoryData">
                   <div class="swiper-slide" v-if="currentIndex == category.categoryId" :key="index">
-                    <!-- <img class="category-main-img" :src="category.mainImgUrl" v-if="category.mainImgUrl"/> -->
                     <div class="category-list" v-for="(products, index) in category.secondLevelCategoryVOS" :key="index">
                       <p class="catogory-title">{{products.categoryName}}</p>
                       <div class="product-item" v-for="(product, index) in products.thirdLevelCategoryVOS" :key="index" @click="selectProduct(product)">

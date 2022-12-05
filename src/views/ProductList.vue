@@ -38,7 +38,7 @@
         @load="onLoad"
         @offset="300"
       >
-        <!-- <p v-for="item in list" :key="item">{{ item }}</p> -->
+
         <div class="product-item" v-for="(item, index) in productList" :key="index" @click="productDetail(item)">
           <img :src="prefix(item.goodsCoverImg)" />
           <div class="product-info">
@@ -53,9 +53,8 @@
 </template>
 
 <script>
-import { getQueryString } from '@/common/js/utils'
 import { search } from '../service/good'
-import { Toast } from 'vant'
+
 export default {
   data() {
     return {
@@ -73,17 +72,13 @@ export default {
     }
   },
   mounted() {
-    // window.addEventListener('scroll', this.pageScroll)
-    // setTimeout(() => {
-    //     this.isLoading = false
-    // }, 500)
-    // this.init()
+
   },
   methods: {
     async init() {
       const { categoryId, from } = this.$route.query
       if (!categoryId && !this.keyword) {
-        // Toast.fail('请输入关键词')
+
         this.finished = true
         this.loading = false;
         return

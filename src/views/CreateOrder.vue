@@ -60,7 +60,7 @@
 
 <script>
 import sHeader from '@/components/SimpleHeader'
-import { getCart, getByCartItemIds } from '../service/cart'
+import { getByCartItemIds } from '../service/cart'
 import { getDefaultAddress, getAddressDetail } from '../service/address'
 import { createOrder, payOrder } from '../service/order'
 import { setLocal, getLocal } from '@/common/js/utils'

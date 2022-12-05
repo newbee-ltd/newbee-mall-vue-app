@@ -7,7 +7,7 @@
  * 版权所有，侵权必究！
  */
 
-var server = require('pushstate-server');
+const server = require('pushstate-server');
 
 server.start({
   port: 5000,

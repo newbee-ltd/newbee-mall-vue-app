@@ -73,7 +73,6 @@
 import navBar from '@/components/NavBar'
 import swiper from '@/components/Swiper'
 import { getHome } from '../service/home'
-import { getUserInfo } from '../service/user'
 import { getLocal } from '@/common/js/utils'
 import { Toast } from 'vant'
 export default {

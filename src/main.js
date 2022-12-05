@@ -29,7 +29,7 @@ Vue.prototype.$md5 = md5;
 Vue.prototype.prefix = prefix;
 
 Array.prototype.remove = function(val) {
-  var index = this.indexOf(val);
+  let index = this.indexOf(val);
   if (index > -1) {
     this.splice(index, 1);
   }

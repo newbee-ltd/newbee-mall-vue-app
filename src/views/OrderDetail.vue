@@ -147,9 +147,7 @@ export default {
         label {
           color: #999;
         }
-        span {
 
-        }
       }
     }
     .order-price {
@@ -162,9 +160,7 @@ export default {
         label {
           color: #999;
         }
-        span {
 
-        }
       }
     }
     .van-card {

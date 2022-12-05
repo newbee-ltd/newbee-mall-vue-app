@@ -9,20 +9,7 @@
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Cart from '../views/Cart.vue'
-import Category from '../views/Category.vue'
-import ProductList from '../views/ProductList.vue'
-import ProductDetail from '../views/ProductDetail.vue'
-import User from '../views/User.vue'
-import Order from '../views/Order.vue'
-import OrderDetail from '../views/OrderDetail.vue'
-import Setting from '../views/Setting.vue'
-import Address from '../views/Address.vue'
-import AddressEdit from '../views/AddressEdit.vue'
-import Login from '../views/Login.vue'
-import About from '../views/About.vue'
-import CreateOrder from '../views/CreateOrder.vue'
+
 
 Vue.use(VueRouter)
 

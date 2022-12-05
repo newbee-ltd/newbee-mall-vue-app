@@ -69,8 +69,8 @@
 
 <script>
 import sHeader from '@/components/SimpleHeader'
-import { login, register, getUserInfo } from '../service/user'
-import { setLocal, getLocal } from '@/common/js/utils'
+import { login, register } from '../service/user'
+import { setLocal } from '@/common/js/utils'
 import { Toast } from 'vant'
 import Verify from 'vue2-verify'
 export default {

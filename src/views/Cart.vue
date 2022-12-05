@@ -131,9 +131,6 @@ export default {
         return
       }
       const params = JSON.stringify(this.result)
-      // for(let i = 0; i < this.result.length; i++) {
-      //   await deleteCartItem(this.result[i])
-      // }
       this.$router.push({ path: `create-order?cartItemIds=${params}` })
     },
     async deleteGood(id) {
