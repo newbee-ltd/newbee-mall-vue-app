@@ -4227,8 +4227,8 @@ export const tdist = {
 }
 
 tdist.getLev1 = function() {
-  let t;
-  for ( t = [], e = 1; e < 100; e++) {
+  let t=[];
+  for (let e = 1; e < 100; e++) {
       let i = "0000";
       i = e < 10 ? "0" + e + i : e + i;
       let n = this[i];
@@ -4243,8 +4243,8 @@ tdist.getLev1 = function() {
 tdist.getLev2 = function(t) {
   if ("" == t)
       return [];
-  let e;
-  for ( e = [], i = 1; i < 100; i++) {
+  let e=[];
+  for (let i = 1; i < 100; i++) {
       let n = t.substr(0, 2);
       n += i < 10 ? "0" + i + "00" : i + "00";
       let r = this[n];
@@ -4259,8 +4259,8 @@ tdist.getLev2 = function(t) {
 tdist.getLev3 = function(t) {
   if ("" == t)
       return [];
-  let e;
-  for ( e = [], i = 1; i < 100; i++) {
+  let e=[];
+  for (let i = 1; i < 100; i++) {
       let n = t.substr(0, 4);
       n += i < 10 ? "0" + i : i;
       let r = this[n];
