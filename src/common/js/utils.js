@@ -4241,7 +4241,7 @@ tdist.getLev1 = function() {
 }
 
 tdist.getLev2 = function(t) {
-  if ("" == t)
+  if ("" === t)
       return [];
   let e=[];
   for (let i = 1; i < 100; i++) {
@@ -4257,7 +4257,7 @@ tdist.getLev2 = function(t) {
 }
 
 tdist.getLev3 = function(t) {
-  if ("" == t)
+  if ("" === t)
       return [];
   let e=[];
   for (let i = 1; i < 100; i++) {
@@ -4279,7 +4279,7 @@ export const prefix = (url) => {
   if (url && url.startsWith('http')) {
     return url
   } else {
-    url = `http://127.0.0.1:28019${url}`
+    url = `http://backend-api-01.newbee.ltd${url}`
     return url
   }
 }
