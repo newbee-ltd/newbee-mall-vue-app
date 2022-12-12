@@ -51,8 +51,7 @@
       @close="close"
     >
       <div :style="{ width: '90%', margin: '0 auto', padding: '50px 0' }">
-        <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="payOrder(1)">支付宝支付</van-button>
-        <van-button color="#4fc08d" block @click="payOrder(2)">微信支付</van-button>
+        <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="payOrder">支付宝支付</van-button>
       </div>
     </van-popup>
   </div>
@@ -65,6 +64,7 @@ import { getDefaultAddress, getAddressDetail } from '../service/address'
 import { createOrder, payOrder } from '../service/order'
 import { setLocal, getLocal } from '@/common/js/utils'
 import { Toast } from 'vant'
+import axios from '../utils/axios'
 export default {
   components: {
     sHeader
@@ -116,10 +116,11 @@ export default {
     close() {
       this.$router.push({ path: 'order' })
     },
-    async payOrder(type) {
+    async payOrder() {
       Toast.loading
-      await payOrder({ orderNo: this.orderNo, payType: type })
-      this.$router.push({ path: 'order' })
+      console.log(this.orderNo)
+      const resp = await axios.post(`/ali-pay/trade/page/pay/${this.orderNo}`)
+      document.write(resp.data)
     }
   },
   computed: {

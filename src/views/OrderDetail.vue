@@ -95,7 +95,7 @@ export default {
         title: '确认取消订单？',
       }).then(() => {
         cancelOrder(id).then(res => {
-          if (res.resultCode == 200) {
+          if (res.resultCode === 200) {
             Toast('删除成功')
             this.init()
           }
@@ -109,7 +109,7 @@ export default {
         title: '是否确认收货？',
       }).then(() => {
         confirmOrder(id).then(res => {
-          if (res.resultCode == 200) {
+          if (res.resultCode === 200) {
             Toast('确认成功')
             this.init()
           }
