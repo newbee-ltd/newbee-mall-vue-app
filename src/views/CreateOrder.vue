@@ -51,8 +51,7 @@
       @close="close"
     >
       <div :style="{ width: '90%', margin: '0 auto', padding: '50px 0' }">
-        <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="payOrder(1)">支付宝支付</van-button>
-        <van-button color="#4fc08d" block @click="payOrder(2)">微信支付</van-button>
+        <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="payOrder()">支付宝支付</van-button>
       </div>
     </van-popup>
   </div>
@@ -116,10 +115,12 @@ export default {
     close() {
       this.$router.push({ path: 'order' })
     },
-    async payOrder(type) {
+
+    async payOrder() {
       Toast.loading
-      await payOrder({ orderNo: this.orderNo, payType: type })
-      this.$router.push({ path: 'order' })
+      const {data}=await payOrder({ orderNo: this.orderNo })
+      // this.$router.push({ path: 'order' })
+      document.write(data);
     }
   },
   computed: {

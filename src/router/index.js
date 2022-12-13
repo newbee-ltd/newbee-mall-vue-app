@@ -131,6 +131,11 @@ const routes = [
     },
     component: () => import(/* webpackChunkName: "create-order" */ '../views/CreateOrder.vue'),
   },
+  {
+    path:'/success',
+    name:'Success',
+    component:()=>import('@/views/Success'),
+  }
 ]
 
 const router = new VueRouter({

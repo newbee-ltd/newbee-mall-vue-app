@@ -30,7 +30,8 @@ export function confirmOrder(id) {
 }
 
 export function payOrder(params) {
-  return axios.get('/paySuccess', { params })
+   console.log(params)
+  return axios.post(`/ali-pay/trade/page/pay/${params.orderNo}`)
 }
 
 
