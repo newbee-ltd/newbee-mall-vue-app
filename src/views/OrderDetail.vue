@@ -29,8 +29,8 @@
       <van-button v-if="detail.orderStatus == 0" block @click="cancelOrder(detail.orderNo)">取消订单</van-button>
       <van-button v-if="detail.orderStatus <= 4&&detail.orderStatus>=1" block @click="askRefund(detail.orderNo)">申请退款</van-button>
       <van-dropdown-menu v-if="detail.orderStatus <= 4&&detail.orderStatus>=1">
-        <van-dropdown-item 
-        :title="droptitle" 
+        <van-dropdown-item
+        :title="droptitle"
         :options="optionRefund"
         @change="toggleoption"
         ></van-dropdown-item>
@@ -66,7 +66,7 @@
       :style="{ height: '24%' }"
     >
       <div :style="{ width: '90%', margin: '0 auto', padding: '20px 0' }">
-        <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="payOrder(detail.orderNo)">支付宝支付</van-button>
+        <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="payOrder()">支付宝支付</van-button>
       </div>
     </van-popup>
   </div>
@@ -74,7 +74,7 @@
 
 <script>
 import sHeader from '@/components/SimpleHeader'
-import { getOrderDetail, cancelOrder, confirmOrder, payOrder } from '../service/order'
+import { getOrderDetail, cancelOrder, confirmOrder, payOrder } from '@/service/order'
 import { Dialog, Toast } from 'vant'
 export default {
   components: {
@@ -140,9 +140,9 @@ export default {
     showPayFn() {
       this.showPay = true
     },
-    async payOrder(id) {
+    async payOrder() {
       Toast.loading
-      const {data}=await payOrder({ orderNo: this.orderNo })
+      const {data}=await payOrder(this.detail)
       // this.$router.push({ path: 'order' })
       this.showPay = false
       this.init()
@@ -159,7 +159,7 @@ export default {
       }else{
         await refund(orderNo,'用户未填写理由')
       }
-      
+
     },
     toggleoption(value){
       this.droptitle=this.optionRefund[value].text
