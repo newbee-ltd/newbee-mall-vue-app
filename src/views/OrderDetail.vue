@@ -142,9 +142,11 @@ export default {
     },
     async payOrder(id) {
       Toast.loading
-      await payOrder(id)
+      const {data}=await payOrder({ orderNo: this.orderNo })
+      // this.$router.push({ path: 'order' })
       this.showPay = false
       this.init()
+      document.write(data);
     },
     close() {
       Dialog.close()
