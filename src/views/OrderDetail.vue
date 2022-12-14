@@ -26,7 +26,19 @@
       </div>
       <van-button v-if="[1,2,3].includes(detail.orderStatus)" style="margin-bottom: 10px" color="#1baeae" block @click="handleConfirmOrder(detail.orderNo)">确认收货</van-button>
       <van-button v-if="detail.orderStatus == 0" style="margin-bottom: 10px" color="#1baeae" block @click="showPayFn">去支付</van-button>
-      <van-button v-if="!(detail.orderStatus < 0 || detail.orderStatus == 4)" block @click="cancelOrder(detail.orderNo)">取消订单</van-button>
+      <van-button v-if="detail.orderStatus == 0" block @click="cancelOrder(detail.orderNo)">取消订单</van-button>
+      <van-button v-if="detail.orderStatus <= 4&&detail.orderStatus>=1" block @click="askRefund(detail.orderNo)">申请退款</van-button>
+      <van-dropdown-menu v-if="detail.orderStatus <= 4&&detail.orderStatus>=1">
+        <van-dropdown-item 
+        :title="droptitle" 
+        :options="optionRefund"
+        @change="toggleoption"
+        ></van-dropdown-item>
+      </van-dropdown-menu>
+      <div v-if="droptitle=='其他原因'">
+        请在此输入您的退款理由：
+        <input style="background-color: #bbb" ref="userreason" type="text"/>
+      </div>
     </div>
     <div class="order-price">
       <div class="price-item">
@@ -54,8 +66,7 @@
       :style="{ height: '24%' }"
     >
       <div :style="{ width: '90%', margin: '0 auto', padding: '20px 0' }">
-        <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="payOrder(detail.orderNo, 1)">支付宝支付</van-button>
-        <van-button color="#4fc08d" block @click="payOrder(detail.orderNo, 2)">微信支付</van-button>
+        <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="payOrder(detail.orderNo)">支付宝支付</van-button>
       </div>
     </van-popup>
   </div>
@@ -72,7 +83,15 @@ export default {
   data() {
     return {
       detail: {},
-      showPay: false
+      showPay: false,
+      droptitle:'请选择您的退款原因',
+      nowvalue:-1,
+      optionRefund:[
+        {text:'质量不好',value:0},
+        {text:'发货太慢',value:1},
+        {text:'款式不喜欢',value:2},
+        {text:'其他原因',value:3}
+      ]
     }
   },
   mounted() {
@@ -121,14 +140,28 @@ export default {
     showPayFn() {
       this.showPay = true
     },
-    async payOrder(id, type) {
+    async payOrder(id) {
       Toast.loading
-      await payOrder({ orderNo: id, payType: type })
+      await payOrder(id)
       this.showPay = false
       this.init()
     },
     close() {
       Dialog.close()
+    },
+    async askRefund(orderNo){
+      if(this.nowvalue<3&&this.nowvalue>=0){
+        await refund(orderNo,this.optionRefund[this.nowvalue].text)
+      }else if(this.nowvalue==4&&this.$refs.userreason.value!==null){
+        await refund(orderNo,this.$refs.userreason.value)
+      }else{
+        await refund(orderNo,'用户未填写理由')
+      }
+      
+    },
+    toggleoption(value){
+      this.droptitle=this.optionRefund[value].text
+      this.nowvalue=value
     }
   }
 }

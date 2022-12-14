@@ -22,7 +22,7 @@ export function getOrderDetail(id) {
 }
 
 export function cancelOrder(id) {
-  return axios.put(`/order/${id}/cancel`);
+  return axios.put(`/ali-pay/trade/close/${id}`);
 }
 
 export function confirmOrder(id) {
@@ -30,7 +30,12 @@ export function confirmOrder(id) {
 }
 
 export function payOrder(params) {
-  return axios.post(`/ali-pay/trade/page/pay/{orderNo}/${params}`)
+  const orderNo=params.orderNo
+  return axios.post(`/ali-pay/trade/page/pay/${orderNo}`)
+}
+
+export function refund(orderNo, reason){
+  return axios.post(`/ali-pay/trade/refund/${orderNo}/${reason}`)
 }
 
 
