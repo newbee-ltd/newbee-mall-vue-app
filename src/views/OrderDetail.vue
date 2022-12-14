@@ -142,7 +142,9 @@ export default {
     },
     async payOrder() {
       Toast.loading
-      const {data}=await payOrder(this.orderNo)
+      const orderNo = this.detail.orderNo
+      console.log(orderNo)
+      const {data}=await payOrder(orderNo)
       // this.$router.push({ path: 'order' })
       this.showPay = false
       this.init()
