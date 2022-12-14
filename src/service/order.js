@@ -29,8 +29,7 @@ export function confirmOrder(id) {
   return axios.put(`/order/${id}/finish`)
 }
 
-export function payOrder(params) {
-  const orderNo=params.orderNo
+export function payOrder(orderNo) {
   return axios.post(`/ali-pay/trade/page/pay/${orderNo}`)
 }
 
