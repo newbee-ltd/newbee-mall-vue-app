@@ -74,7 +74,7 @@
 
 <script>
 import sHeader from '@/components/SimpleHeader'
-import { getOrderDetail, cancelOrder, confirmOrder, payOrder } from '@/service/order'
+import { getOrderDetail, cancelOrder, confirmOrder, payOrder,refund } from '@/service/order'
 import { Dialog, Toast } from 'vant'
 export default {
   components: {
@@ -161,7 +161,7 @@ export default {
       }else{
         await refund(orderNo,'用户未填写理由')
       }
-
+      this.init()
     },
     toggleoption(value){
       this.droptitle=this.optionRefund[value].text
