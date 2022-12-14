@@ -22,11 +22,11 @@ export function getOrderDetail(id) {
 }
 
 export function cancelOrder(id) {
-  return axios.put(`/ali-pay/trade/close/${id}`);
+  return axios.post(`/ali-pay/trade/close/${id}`);
 }
 
 export function confirmOrder(id) {
-  return axios.put(`/order/${id}/finish`)
+  return axios.post(`/order/${id}/finish`)
 }
 
 export function payOrder(orderNo) {
