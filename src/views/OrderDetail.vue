@@ -154,9 +154,10 @@ export default {
       Dialog.close()
     },
     async askRefund(orderNo){
+      Toast.loading
       if(this.nowvalue<3&&this.nowvalue>=0){
         await refund(orderNo,this.optionRefund[this.nowvalue].text)
-      }else if(this.nowvalue==4&&this.$refs.userreason.value!==null){
+      }else if(this.nowvalue===4&&this.$refs.userreason.value!==null){
         await refund(orderNo,this.$refs.userreason.value)
       }else{
         await refund(orderNo,'用户未填写理由')
