@@ -20,7 +20,8 @@
             class="search-title"
             @mouseenter="textEnter"
             @mouseleave="textLeave"
-            v-model="keyword"/>
+            v-model="keyword"
+            ref="userinput"/>
         </div>
         <span class="search-btn" @click="getSearch">搜索</span>
       </header>
@@ -58,7 +59,7 @@ import { search } from '../service/good'
 export default {
   data() {
     return {
-      keyword: this.$route.query.keyword || '',
+      keyword: this.$refs.userinput,
       searchBtn: false,
       seclectActive: false,
       refreshing: false,
@@ -83,7 +84,7 @@ export default {
         this.loading = false;
         return
       }
-      const { data, data: { list } } = await search({ pageNumber: this.page, goodsCategoryId: categoryId, keyword: this.keyword, orderBy: this.orderBy })
+      const { data, data: { list } } = await search({ pageNumber: this.page, keyword: this.keyword })
       this.productList = this.productList.concat(list)
       this.totalPage = data.totalPage
       this.loading = false;
