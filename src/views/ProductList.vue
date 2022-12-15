@@ -103,7 +103,11 @@ export default {
 
     },
     getSearch() {
-      this.onRefresh()
+      if(this.$refs.userinput===''){
+        alert('请输入搜索内容后再点击搜索按钮')
+      }else{
+        this.onRefresh()
+      }
     },
     pageScroll() {
       let scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop
