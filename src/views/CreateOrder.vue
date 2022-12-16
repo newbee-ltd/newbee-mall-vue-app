@@ -47,11 +47,11 @@
       :close-on-click-overlay="false"
       v-model="showPay"
       position="bottom"
-      :style="{ height: '30%' }"
+      :style="{ height: '25%' }"
       @close="close"
     >
       <div :style="{ width: '90%', margin: '0 auto', padding: '50px 0' }">
-        <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="payOrder()">支付宝支付</van-button>
+        <van-button :style="{ marginBottom: '10px',position:absolute,top:'80%' }" color="#1989fa" block @click="payOrder()">支付宝支付</van-button>
       </div>
     </van-popup>
   </div>

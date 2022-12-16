@@ -63,7 +63,7 @@
     <van-popup
       v-model="showPay"
       position="bottom"
-      :style="{ height: '24%' }"
+      :style="{ height: '15%' }"
     >
       <div :style="{ width: '90%', margin: '0 auto', padding: '20px 0' }">
         <van-button :style="{ marginBottom: '10px' }" color="#1989fa" block @click="payOrder()">支付宝支付</van-button>
