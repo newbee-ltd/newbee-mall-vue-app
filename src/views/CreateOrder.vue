@@ -51,7 +51,9 @@
       @close="close"
     >
       <div :style="{ width: '90%', margin: '0 auto', padding: '50px 0' }">
-        <van-button :style="{ marginBottom: '10px',position:absolute,top:'80%' }" color="#1989fa" block @click="payOrder()">支付宝支付</van-button>
+        <div>
+          <van-button class="alipayBtnBox" color="#1989fa" block @click="payOrder()">支付宝支付</van-button>
+        </div>
       </div>
     </van-popup>
   </div>
@@ -234,6 +236,14 @@ export default {
         width: 90%;
         margin: 0 auto;
       }
+    }
+    .alipayBtnBox{
+      width: 80%;
+      height: 30%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
     }
   }
 </style>
