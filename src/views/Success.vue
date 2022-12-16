@@ -1,16 +1,15 @@
 <template>
   <div>
     <h1>支付完成</h1>
-    <van-button type="primary" size="small" @click="returnToMain()">返回主界面</van-button>
+    <h2>正在为您跳转至主界面...</h2>
   </div>
 </template>
 
 <script>
 export default {
-    methods:{
-        returnToMain(){
-            this.$router.push('/')
-        }
+    mounted(){
+      // setTimeout(()=>this.$router.push('/'),10000)
+      this.$router.push('/')
     }
 
 }
