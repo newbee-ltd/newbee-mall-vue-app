@@ -10,9 +10,9 @@
 
 <template>
   <header class="simple-header">
-    <i class="nbicon nbfanhui" @click="goBack"></i>
+    <em class="nbicon nbfanhui" @click="goBack"></em>
     <div class="simple-header-name">{{ name }}</div>
-    <i class="nbicon nbmore"></i>
+    <em class="nbicon nbmore"></em>
   </header>
 </template>
 

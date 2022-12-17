@@ -12,11 +12,11 @@
   <div class="nav-bar">
     <ul class="nav-list">
       <router-link tag="li" class="nav-list-item active" to="home">
-        <i class="nbicon nblvsefenkaicankaoxianban-1"></i>
+        <em class="nbicon nblvsefenkaicankaoxianban-1"></em>
         <span>首页</span>
       </router-link>
       <router-link tag="li" class="nav-list-item" to="category">
-        <i class="nbicon nbfenlei"></i>
+        <em class="nbicon nbfenlei"></em>
         <span>分类</span>
       </router-link>
       <router-link tag="li" class="nav-list-item" to="cart">
@@ -24,7 +24,7 @@
         <span>购物车</span>
       </router-link>
       <router-link tag="li" class="nav-list-item" to="user">
-        <i class="nbicon nblvsefenkaicankaoxianban-"></i>
+        <em class="nbicon nblvsefenkaicankaoxianban-"></em>
         <span>我的</span>
       </router-link>
     </ul>

@@ -77,7 +77,7 @@ export default {
         // 先找出当前对应的区
         if (text === addressDetail.regionName) {
           // 找到区对应的几个省份
-          const provinceIndex = province.findIndex(item => item.id.slice(0, 2) === id.substr(0, 2))
+          const provinceIndex = province.findIndex(item => item.id.slice(0, 2) === id.slice(0, 2))
           // 找到区对应的几个市区
           const cityItem = Object.entries(this.areaList.city_list).filter(([cityId, cityName]) =>
             cityId.slice(0, 4) === id.slice(0, 4))[0]

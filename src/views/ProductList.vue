@@ -12,9 +12,9 @@
   <div class="product-list-wrap">
     <div class="product-list-content">
       <header class="category-header wrap">
-        <i class="nbicon nbfanhui" @click="goBack"></i>
+        <em class="nbicon nbfanhui" @click="goBack"></em>
         <div class="header-search">
-          <i class="nbicon nbSearch"></i>
+          <em class="nbicon nbSearch"></em>
           <input
             type="text"
             class="search-title"
@@ -41,7 +41,7 @@
       >
 
         <div class="product-item" v-for="(item, index) in productList" :key="index" @click="productDetail(item)">
-          <img :src="prefix(item.goodsCoverImg)" />
+          <img :src="prefix(item.goodsCoverImg)" alt="商品图片"/>
           <div class="product-info">
             <p class="name">{{item.goodsName}}</p>
             <p class="subtitle">{{item.goodsIntro}}</p>

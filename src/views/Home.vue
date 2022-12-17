@@ -11,10 +11,10 @@
 <template>
   <div>
     <header class="home-header wrap" :class="{'active' : headerScroll}">
-        <router-link tag="i" to="./category"><i class="nbicon nbmenu2"></i></router-link>
+        <router-link tag="i" to="./category"><em class="nbicon nbmenu2"></em></router-link>
         <div class="header-search">
             <span class="app-name">新蜂商城</span>
-            <i class="iconfont icon-search"></i>
+            <em class="iconfont icon-search"></em>
             <router-link tag="span" class="search-title" to="./product-list?from=home">山河无恙，人间皆安</router-link>
         </div>
         <router-link class="login" tag="span" to="./login" v-if="!isLogin">登录</router-link>
@@ -26,7 +26,7 @@
     <swiper :list="swiperList"></swiper>
     <div class="category-list">
       <div v-for="item in categoryList" v-bind:key="item.categoryId">
-        <img :src="item.imgUrl">
+        <img :src="item.imgUrl" alt="商品图片">
         <span>{{item.name}}</span>
       </div>
     </div>

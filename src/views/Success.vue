@@ -33,11 +33,11 @@ export default {
 <style>
 .center{
   display: flex;justify-content: center;
-  font: 20px/1.5 'Microsoft YaHei';
+  font: 20px/1.5 'Microsoft YaHei',sans-serif;
   height: 50px;
 }
 .font{
-  font: 20px/1.5 'Microsoft YaHei';
+  font: 20px/1.5 'Microsoft YaHei',sans-serif;
   height: 50px;
   text-decoration:none;
 }

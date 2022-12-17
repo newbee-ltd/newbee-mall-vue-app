@@ -66,7 +66,7 @@ import { getDefaultAddress, getAddressDetail } from '../service/address'
 import { createOrder, payOrder } from '../service/order'
 import { setLocal, getLocal } from '@/common/js/utils'
 import { Toast } from 'vant'
-import axios from '../utils/axios'
+
 export default {
   components: {
     sHeader
@@ -119,7 +119,7 @@ export default {
       this.$router.push({ path: 'order' })
     },
     async payOrder(type) {
-      Toast.loading
+      Toast.loading()
       const {data}=await payOrder(this.orderNo)
       // this.$router.push({ path: 'order' })
       document.write(data);
