@@ -146,20 +146,26 @@ export default {
       this.showPay = true
     },
     async payOrder() {
-      Toast.loading
+      Toast.loading({
+        message: '正在跳转到支付宝...',
+        forbidClick: true
+      });
       const orderNo = this.detail.orderNo
-      console.log(orderNo)
       const {data}=await payOrder(orderNo)
       // this.$router.push({ path: 'order' })
       this.showPay = false
-      this.init()
-      document.write(data);
+      await this.init()
+      Toast.clear()
+      document.write(data)
     },
     close() {
       Dialog.close()
     },
     async askRefund(orderNo){
-      Toast.loading
+      Toast.loading({
+        message: '正在发起退款...',
+        forbidClick: true
+      });
       if(this.nowvalue<3&&this.nowvalue>=0){
         await refund(orderNo,this.optionRefund[this.nowvalue].text)
       }else if(this.nowvalue===4&&this.$refs.userreason.value!==null){
@@ -167,7 +173,8 @@ export default {
       }else{
         await refund(orderNo,'用户未填写理由')
       }
-      this.init()
+      await this.init()
+      Toast.clear()
     },
     toggleoption(value){
       this.droptitle=this.optionRefund[value].text
