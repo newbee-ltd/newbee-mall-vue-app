@@ -86,16 +86,28 @@ export default {
       }
       let data, list
       if(!categoryId){
+        // 纯关键词搜索
         const resp = await luceneSearch({ pageNumber: this.page, keyword: this.keyword })
         data = resp.data
         list = data.list
       } else {
-        const resp = await search({
-          pageNumber: this.page,
-          goodsCategoryId: categoryId,
-          orderBy: this.orderBy })
-        data = resp.data
-        list = data.list
+        if(!this.keyword){
+          // 纯分类搜索
+          const resp = await search({
+            pageNumber: this.page,
+            goodsCategoryId: categoryId,
+            orderBy: this.orderBy })
+          data = resp.data
+          list = data.list
+        } else {
+          // 混合搜索
+          const resp = await luceneSearch({
+            pageNumber: this.page,
+            goodsCategoryId: categoryId,
+            keyword: this.keyword })
+          data = resp.data
+          list = data.list
+        }
       }
       // const { data, data: { list } } = await search({ pageNumber: this.page, keyword: this.keyword })
       this.productList = this.productList.concat(list)
