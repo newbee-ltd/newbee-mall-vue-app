@@ -49,8 +49,8 @@
 </template>
 
 <script>
-import { getDetail } from '../service/good'
-import { addCart } from '../service/cart'
+import { getDetail } from '@/service/good'
+import { addCart } from '@/service/cart'
 import sHeader from '@/components/SimpleHeader'
 import { Toast } from 'vant'
 export default {
@@ -78,7 +78,7 @@ export default {
     },
     async addCart() {
       const { data, resultCode } = await addCart({ goodsCount: 1, goodsId: this.detail.goodsId })
-      if (resultCode == 200 ) Toast.success('添加成功')
+      if (resultCode === 200 ) Toast.success('添加成功')
       this.$store.dispatch('updateCart')
     },
     async goToCart() {

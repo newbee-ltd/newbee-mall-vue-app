@@ -23,7 +23,7 @@
 
 <script>
 import sHeader from '@/components/SimpleHeader'
-import { getUserInfo, EditUserInfo, logout } from '../service/user'
+import { getUserInfo, EditUserInfo, logout } from '@/service/user'
 import { setLocal } from '@/common/js/utils'
 import { Toast } from 'vant'
 export default {
@@ -54,7 +54,7 @@ export default {
     },
     async logout() {
       const { resultCode } = await logout()
-      if (resultCode == 200) {
+      if (resultCode === 200) {
         setLocal('token', '')
         window.location.href = '/'
       }

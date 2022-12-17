@@ -27,7 +27,7 @@
               v-for="item in categoryData"
               :key="item.categoryId"
               v-text="item.categoryName"
-              :class="{'active' : currentIndex == item.categoryId}"
+              :class="{'active' : currentIndex === item.categoryId}"
               @click="selectMenu(item.categoryId)"
             ></li>
           </ul>
@@ -37,7 +37,7 @@
             <div class="swiper-container">
               <div class="swiper-wrapper">
                 <template v-for="(category, index) in categoryData">
-                  <div class="swiper-slide" v-if="currentIndex == category.categoryId" :key="index">
+                  <div class="swiper-slide" v-if="currentIndex === category.categoryId" :key="index">
                     <div class="category-list" v-for="(products, index) in category.secondLevelCategoryVOS" :key="index">
                       <p class="catogory-title">{{products.categoryName}}</p>
                       <div class="product-item" v-for="(product, index) in products.thirdLevelCategoryVOS" :key="index" @click="selectProduct(product)">

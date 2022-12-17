@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { search } from '../service/good'
+import { search, luceneSearch } from '../service/good'
 
 export default {
   data() {
@@ -78,13 +78,26 @@ export default {
   methods: {
     async init() {
       const { categoryId, from } = this.$route.query
+      // 既非关键词搜索又非分类搜索 则直接回退
       if (!categoryId && !this.keyword) {
-
         this.finished = true
         this.loading = false;
         return
       }
-      const { data, data: { list } } = await search({ pageNumber: this.page, keyword: this.keyword })
+      let data, list
+      if(!categoryId){
+        const resp = await luceneSearch({ pageNumber: this.page, keyword: this.keyword })
+        data = resp.data
+        list = data.list
+      } else {
+        const resp = await search({
+          pageNumber: this.page,
+          goodsCategoryId: categoryId,
+          orderBy: this.orderBy })
+        data = resp.data
+        list = data.list
+      }
+      // const { data, data: { list } } = await search({ pageNumber: this.page, keyword: this.keyword })
       this.productList = this.productList.concat(list)
       this.totalPage = data.totalPage
       this.loading = false;

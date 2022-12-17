@@ -111,7 +111,7 @@ export default {
       this.$router.push({ path: 'home' })
     },
     async onChange(value, detail) {
-      if (this.list.filter(item => item.cartItemId == detail.name)[0].goodsCount == value) return
+      if (this.list.filter(item => item.cartItemId === detail.name)[0].goodsCount === value) return
       Toast.loading({ message: '修改中...', forbidClick: true });
       const params = {
         cartItemId: detail.name,
@@ -119,14 +119,14 @@ export default {
       }
       const { data } = await modifyCart(params)
       this.list.forEach(item => {
-        if (item.cartItemId == detail.name) {
+        if (item.cartItemId === detail.name) {
           item.goodsCount = value
         }
       })
       Toast.clear();
     },
     async onSubmit() {
-      if (this.result.length == 0) {
+      if (this.result.length === 0) {
         Toast.fail('请选择商品进行结算')
         return
       }
@@ -139,11 +139,7 @@ export default {
       this.init()
     },
     groupChange(result) {
-      if (result.length == this.list.length) {
-        this.checkAll = true
-      } else {
-        this.checkAll = false
-      }
+      this.checkAll = result.length === this.list.length;
       this.result = result
     },
     allCheck(value) {

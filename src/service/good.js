@@ -21,3 +21,6 @@ export function search(params) {
   return axios.get('/search', { params });
 }
 
+export function luceneSearch(params) {
+  return axios.get('/luceneSearch', { params });
+}

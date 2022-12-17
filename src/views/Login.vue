@@ -10,9 +10,9 @@
 
 <template>
   <div class="login">
-    <s-header :name="type == 'login' ? '登录' : '注册'" :back="'/home'"></s-header>
+    <s-header :name="type === 'login' ? '登录' : '注册'" :back="'/home'"></s-header>
     <img class="logo" src="//s.weituibao.com/1582958061265/mlogo.png" alt="">
-    <div v-if="type == 'login'" class="login-body login">
+    <div v-if="type === 'login'" class="login-body login">
       <van-form @submit="onSubmit">
         <van-field
           v-model="username"
@@ -69,7 +69,7 @@
 
 <script>
 import sHeader from '@/components/SimpleHeader'
-import { login, register } from '../service/user'
+import { login, register } from '@/service/user'
 import { setLocal } from '@/common/js/utils'
 import { Toast } from 'vant'
 import Verify from 'vue2-verify'
@@ -103,7 +103,7 @@ export default {
         Toast.fail('验证码未填或填写错误!')
         return
       }
-      if (this.type == 'login') {
+      if (this.type === 'login') {
         const { data, resultCode } = await login({
           "loginName": values.username,
           "passwordMd5": this.$md5(values.password)
@@ -139,7 +139,7 @@ export default {
       width: 120px;
       height: 120px;
       display: block;
-      margin: 80px auto 0px;
+      margin: 80px auto 0;
     }
     .login-body {
       padding: 0 20px;

@@ -25,8 +25,8 @@
         <span>{{ detail.createTime }}</span>
       </div>
       <van-button v-if="[1,2,3].includes(detail.orderStatus)" style="margin-bottom: 10px" color="#1baeae" block @click="handleConfirmOrder(detail.orderNo)">确认收货</van-button>
-      <van-button v-if="detail.orderStatus == 0" style="margin-bottom: 10px" color="#1baeae" block @click="showPayFn">去支付</van-button>
-      <van-button v-if="detail.orderStatus == 0" block @click="cancelOrder(detail.orderNo)">取消订单</van-button>
+      <van-button v-if="detail.orderStatus === 0" style="margin-bottom: 10px" color="#1baeae" block @click="showPayFn">去支付</van-button>
+      <van-button v-if="detail.orderStatus === 0" block @click="cancelOrder(detail.orderNo)">取消订单</van-button>
       <van-button v-if="detail.orderStatus <= 4&&detail.orderStatus>=1" block @click="askRefund(detail.orderNo)">申请退款</van-button>
       <van-dropdown-menu v-if="detail.orderStatus <= 4&&detail.orderStatus>=1">
         <van-dropdown-item
@@ -35,7 +35,7 @@
         @change="toggleoption"
         ></van-dropdown-item>
       </van-dropdown-menu>
-      <div v-if="droptitle=='其他原因'">
+      <div v-if="droptitle==='其他原因'">
         请在此输入您的退款理由：
         <input style="background-color: #bbb" ref="userreason" type="text"/>
       </div>

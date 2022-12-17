@@ -10,12 +10,12 @@
 
 <template>
   <div class="address-edit-box">
-    <s-header :name="`${type == 'add' ? '新增地址' : '编辑地址'}`"></s-header>
+    <s-header :name="`${type === 'add' ? '新增地址' : '编辑地址'}`"></s-header>
     <van-address-edit
       class="edit"
       :area-list="areaList"
       :address-info="addressInfo"
-      :show-delete="type == 'edit'"
+      :show-delete="type === 'edit'"
       show-set-default
       show-search-result
       :search-result="searchResult"
@@ -29,7 +29,7 @@
 <script>
 import { Toast } from 'vant'
 import sHeader from '@/components/SimpleHeader'
-import { addAddress, EditAddress, DeleteAddress, getAddressDetail } from '../service/address'
+import { addAddress, EditAddress, DeleteAddress, getAddressDetail } from '@/service/address'
 import { tdist } from '@/common/js/utils'
 export default {
   components: {
@@ -69,19 +69,21 @@ export default {
     this.addressId = addressId
     this.type = type
     this.from = from || ''
-    if (type == 'edit') {
+    if (type === 'edit') {
       const { data: addressDetail } = await getAddressDetail(addressId)
       let _areaCode = ''
       const province = tdist.getLev1()
       Object.entries(this.areaList.county_list).forEach(([id, text]) => {
         // 先找出当前对应的区
-        if (text == addressDetail.regionName) {
+        if (text === addressDetail.regionName) {
           // 找到区对应的几个省份
-          const provinceIndex = province.findIndex(item => item.id.slice(0, 2) == id.substr(0, 2))
+          const provinceIndex = province.findIndex(item => item.id.slice(0, 2) === id.substr(0, 2))
           // 找到区对应的几个市区
-          const cityItem = Object.entries(this.areaList.city_list).filter(([cityId, cityName]) => cityId.slice(0, 4) == id.slice(0, 4))[0]
+          const cityItem = Object.entries(this.areaList.city_list).filter(([cityId, cityName]) =>
+            cityId.slice(0, 4) === id.slice(0, 4))[0]
           // 对比找到的省份和接口返回的省份是否相等，因为有一些区会重名
-          if (province[provinceIndex].text == addressDetail.provinceName && cityItem[1] == addressDetail.cityName) {
+          if (province[provinceIndex].text === addressDetail.provinceName
+            && cityItem[1] === addressDetail.cityName) {
             _areaCode = id
           }
         }
@@ -110,10 +112,10 @@ export default {
         detailAddress: content.addressDetail,
         defaultFlag: content.isDefault ? 1 : 0,
       }
-      if (this.type == 'edit') {
+      if (this.type === 'edit') {
         params['addressId'] = this.addressId
       }
-      const { message } = await this.type == 'add' ? addAddress(params) : EditAddress(params)
+      const { message } = this.type === 'add' ? addAddress(params) : EditAddress(params)
       Toast('保存成功')
       setTimeout(() => {
         this.$router.push({ path: `address?from=${this.from}` })
